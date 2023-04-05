@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="container1">
+      <img
+        src="https://hodlinfo.com/static/media/HODLINFO.8f78fc06.png"
+        class="img"
+        alt=""
+      />
+      <div class="butt-group">
+        <button class="btn1">INR</button>
+        <button class="btn1">BTC</button>
+        <button class="btn1">BUY BTC</button>
+      </div>
+      <div>
+        <div>
+          <img
+            class="img2"
+            src="/Internship_assignmrent/image/telegram.png"
+            alt=""
+          />
+        </div>
+        <button class="btn2">Contact Telegram</button>
+      </div>
+    </nav>
+    <div class="container2">
+      <div class="text">
+        <div class="maintxt">0.48 %</div>
+        <div class="subtxt">5 Mins</div>
+      </div>
+      <div class="text">
+        <div class="maintxt">1.07 %</div>
+        <div class="subtxt">1 Hour</div>
+      </div>
+      <div class="text1">
+        <div class="up">Best Price to trade</div>
+        <div class="maintxt1">₹24,65,834</div>
+        <div class="bottom">Average BTC/INR net price including commission</div>
+      </div>
+      <div class="text">
+        <div class="maintxt">9.35 %</div>
+        <div class="subtxt">1 Day</div>
+      </div>
+      <div class="text">
+        <div class="maintxt">16.98 %</div>
+        <div class="subtxt">7 Days</div>
+      </div>
+    </div>
+    <table class="table">
+      <thead class="head">
+        <tr>
+          <th>
+            <h4><span class="row">#</span></h4>
+          </th>
+          <th>
+            <h4><span class="row">Platform</span></h4>
+          </th>
+          <th>
+            <h4><span class="row"> Last Traded Price </span></h4>
+          </th>
+          <th>
+            <h4><span class="row">Buy / Sell Price</span></h4>
+          </th>
+          <th>
+            <h4><span class="row">Volume</span></h4>
+          </th>
+          <th>
+            <h4><span class="row">Base Unit</span></h4>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="output"></tbody>
+    </table>
+  </body>
+
+  <script>
+    const output = document.getElementById("output");
+    const renderHTML = (index, row) => `
+      <tr>
+        <td class="col"><h4 class="tabletxt">${index}</h4></td>
+        <td class="col">
+          <a
+            href="https://bitbns.com/trade/?utm_source=refID_35_2023-04-05&utm_medium=referral_link&utm_campaign=referralip-172-31-29-104#/signup"
+          >
+            <h4 class="tabletxt">
+              <img src="./image/logo2.png" class="logo" alt="" />
+              <span class="name">${row.name}</span>
+            </h4>
+          </a>
+        </td>
+        <td class="col"><h4 class="tabletxt">$ ${row.last}</h4></td>
+        <td class="col">
+          <h4 class="tabletxt">
+            <span class="name"> $ ${row.buy} / $ ${row.sell} </span>
+          </h4>
+        </td>
+        <td class="col"><h4 class="tabletxt color-red">${row.volume}</h4></td>
+        <td class="col">
+          <h4 class="tabletxt color-red">${row.base_unit}</h4>
+        </td>
+      </tr>
+    `;
+
+    const fetchDataFromServer = async () => {
+      const data = await fetch("/fetchData").then((res) => res.json());
+      let index = 1;
+      for (let d of data.data) {
+        output.innerHTML += renderHTML(index++, d);
+      }
+    };
+    fetchDataFromServer();
+  </script>
+</html>
